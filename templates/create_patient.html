@@ -1,0 +1,52 @@
+<div class="form-container">
+    <div id="photo-section">
+        <img id="patient-photo" src="{{ url_for('static', filename='default-photo.png') }}" alt="Patient Photo">
+        <button onclick="takePhoto()">Take Photo</button>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="full-name" placeholder="Patient's full name">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Patient's residential address">
+        </div>
+        
+        <div class="form-group">
+            <label for="contact">Contact</label>
+            <input type="text" id="contact" name="contact" placeholder="Patient's cell number">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="patientName@domain.com">
+        </div>
+        
+        <div class="form-group">
+            <label for="home-hospital">Home Hospital</label>
+            <input type="text" id="home-hospital" name="home-hospital" placeholder="Patient's local/home hospital">
+            <label for="visiting-hospital">Visiting Hospital</label>
+            <input type="text" id="visiting-hospital" name="visiting-hospital" placeholder="Visiting hospital">
+        </div>
+        
+        <div class="form-group">
+            <label for="allergies">Allergies</label>
+            <input type="text" id="allergies" name="allergies" placeholder="Required">
+            <label for="hereditary-disease">Hereditary Disease</label>
+            <input type="text" id="hereditary-disease" name="hereditary-disease">
+        </div>
+        
+        <div class="form-group">
+            <label for="town">Town</label>
+            <input type="text" id="town" name="town" placeholder="Tete">
+            <label for="province">Province</label>
+            <input type="text" id="province" name="province" placeholder="Tete">
+        </div>
+        
+        <div class="form-group">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" placeholder="Mozambique">
+        </div>
+        
+        <div class="form-group">
+            <input type="submit" value="Save">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>

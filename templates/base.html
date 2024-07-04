@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MediCare Management System</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans Regular', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        #header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        #header h2 {
+            text-align: center;
+            margin: 0;
+        }
+        #menu {
+            width: 200px;
+            padding: 20px;
+            background-color: #333;
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            color: white;
+        }
+        #menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #menu ul li {
+            margin: 10px 0;
+        }
+        #menu ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        #menu ul li a:hover {
+            text-decoration: underline;
+        }
+        #menu input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #content {
+            margin-left: 220px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            min-height: 80vh;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+    <script>
+        function loadForm(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('content').innerHTML = html;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <div id="header">
+        <h2>MediCare Management System</h2>
+    </div>
+    <div id="menu">
+        <ul>
+            {% for item in menu %}
+            <li><a href="#" onclick="loadForm('{{ url_for(item.url) }}')">{{ loop.index }}. {{ item.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <label for="choice">Enter your choice (0-6):</label>
+        <input type="text" id="choice" name="choice">
+    </div>
+    <div id="content">
+        <!-- Dynamic content will be loaded here -->
+    </div>
+    <footer>
+        <p>Copyright 2024, MediCare.<br>Created, managed by Optimus</p>
+    </footer>
+</body>
+</html>

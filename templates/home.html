@@ -1,61 +1,199 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            MediCare
-        </title>
+<head>
+    <title>MediCare Management System</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Lucida Sans Regular', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 10px;
+            background-color: #f0a422;
+        }
+        header .greeting, header .language {
+            font-size: 20px;
+            color: #f8f0f0;
+        }
+        main {
+            flex-grow: 1;
+            padding: 10px;
+        }
+        h1 {
+            font-size: 72px;
+            color: rgba(0, 0, 255, 0.984);
+            text-align: center;
+        }
+        #logo {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        h2 {
+            text-align: right;
+            font-size: small;
+            color: rgb(17, 0, 255);
+            font-weight: bolder;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            background: url('/static/back_ground.png') no-repeat center center;
+            background-size: cover;
+            opacity: 1;
+            padding: 10px;
+            border-radius: 20px;
+        }
+        .menu {
+            flex-basis: 20%;
+            padding-right: 20%;
+            color: #000;
+        }
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .menu li {
+            margin: 25px 0;
+        }
+        .menu li a {
+            color: #000;
+            text-decoration: none;
+        }
+        .menu li a:hover {
+            text-decoration: underline;
+        }
+        .choice-container {
+            flex-basis: 100%;
+            border: 5px solid #050505;
+            border-radius: 20px;
+            padding: 10px;
+            overflow-y: auto;
+            height: 700px; /* Adjust as needed */
+            background-color: rgba(250, 246, 246, 0.97); /* Ensure text readability */
+        }
+        #login-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: url('/static/back_ground.png') no-repeat center center;
+            background-size: cover;
+        }
+        #login-form form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 300px;
+        }
+        #login-form .form-group {
+            margin-bottom: 15px;
+        }
+        #login-form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        #login-form input[type="text"], #login-form input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #login-form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        #login-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
+    <script>
+        function getGreeting() {
+            const now = new Date();
+            const hours = now.getHours();
+            let greeting;
 
-        <style>
-            h1{
-                font-size: 50px;
-                font-family: 'lucida Sans Regular';
-                font-weight: normal;
-                color:rgba(0, 0, 255, 0.984);
-                text-align: center;
+            if (hours >= 6 && hours < 12) {
+                greeting = "Good Morning";
+            } else if (hours >= 12 && hours < 18) {
+                greeting = "Good Afternoon";
+            } else {
+                greeting = "Good Evening";
             }
 
-            #logo {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-            }
-            h2 {
-                font-family: "lucida Sans Regular";
-                font-size: small;
-                color:rgb(17, 0, 255);
-                font-weight: bolder;
-                text-align: right;
-            }
+            return greeting;
+        }
 
-            h3 {
-                font-family: 'Trebuchet MS';
-                font-size: small;
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('greeting').innerHTML = `${getGreeting()}, {{ username }}`;
+        });
 
-            #container {
-                max-width: 720;
-                margin: 0 auto 0 auto;
-            }
-        </style>
-    </head>
-    <body>
-        <dev id="container">
-        <h1>
-            MediCare Management System
-        </h1>
-        <img id="logo" src="/static/image.png"
-        >
-        <h2>
-            Powered by AI
-        </h2>
-            The twenty-first century health service for a health Mozambique
-         <h3>
-            To-Do Show Task links here
-        </h3>
-        <div style="text-align: centre;">
-        <button>Contact Us</button>
-            <p>Copyright Reserved 2024, MediCare</p>
+        function loadForm(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('content').innerHTML = html;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="language">Language: <a href="#">Eng</a> / <a href="#">PT</a></div>
+        <div class="greeting" id="greeting"></div>
+    </header>
+    <main>
+        <h1>MediCare Management System</h1>
+        <img id="logo" src="/static/image.png" alt="Clinic Logo">
+        <h2>Powered by AI</h2>
+        <p class="text-center">Transforming Mozambique Health with AI Precision</p>
+
+        <div class="content">
+            <div class="menu">
+                <h3>MENU</h3>
+                <ul>
+                    {% for item in menu %}
+                        <li><a href="#" onclick="loadForm('{{ url_for(item.url) }}')">{{ loop.index }}. {{ item.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                <br>
+                Enter your choice (0-6):
+                <input type="text" id="choice" name="choice">
+                <p>
+                    <img src="/static/flag.gif" alt="Menu GIF" style="width: 100%; height: 100%;">
+                </p>
+            </div>
+
+            <div class="choice-container" id="content">
+                <p>This is the working area of the whole App and is still under construction. Any choice selection from the Menu will appear here</p>
+            </div>
         </div>
-    </body>
-
+        <br>
+        <div class="text-center">
+            <button>Contact Us</button>
+            <p>Copyright 2024, MediCare Management System.<br>Created and Managed Pita Domingos</p>
+        </div>
+    </main>
+</body>
 </html>
