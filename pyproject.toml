@@ -2,7 +2,7 @@
 name = "repl-nix-diagnosisapp-website"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["pita.domingos@zd044onmicrosoft.com"]
 readme = "README.md"
 packages = [{include = "repl_nix_diagnosisapp_website"}]
 
