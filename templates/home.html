@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <title>MediConnect Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             display: flex;
@@ -10,122 +10,113 @@
             font-family: 'Lucida Sans Regular', sans-serif;
             margin: 0;
             padding: 0;
+            background: url('/static/back_ground.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
         }
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 10px;
+            padding: 10px 20px;
             background-color: #f0a422;
+            position: fixed;
+            width: calc(100% - 200px);
+            z-index: 1;
+            top: 0;
+            left: 200px; /* Account for the menu width */
         }
         header .greeting, header .language {
             font-size: 20px;
             color: #f8f0f0;
         }
-        main {
+        .main-content {
+            margin-top: 60px; /* Offset for the fixed header */
+            display: flex;
             flex-grow: 1;
-            padding: 10px;
-        }
-        h1 {
-            font-size: 72px;
-            color: rgba(0, 0, 255, 0.984);
-            text-align: center;
-        }
-        #logo {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        h2 {
-            text-align: right;
-            font-size: small;
-            color: rgb(17, 0, 255);
-            font-weight: bolder;
         }
         .text-center {
             text-align: center;
         }
-        .content {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 5px;
-            background: url('/static/back_ground.png') no-repeat center center;
-            background-size: cover;
-            opacity: 1;
-            padding: 10px;
-            border-radius: 20px;
-        }
         .menu {
-            flex-basis: 20%;
-            padding-right: 20%;
-            color: #000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background-color: black;
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+            overflow-y: auto;
+            z-index: 2; /* Ensure the menu is always on top */
         }
         .menu ul {
             list-style-type: none;
             padding: 0;
         }
-        .menu li {
-            margin: 25px 0;
+        .menu ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .menu li a {
-            color: #000;
+        .menu ul li a {
+            color: white;
             text-decoration: none;
+            flex: 1;
         }
-        .menu li a:hover {
-            text-decoration: underline;
+        .menu ul li i {
+            margin-left: 10px;
+        }
+        .container {
+            margin-left: 220px;
+            padding: 20px;
+            width: calc(100% - 220px); /* Adjusts width to account for the menu */
+            box-sizing: border-box;
         }
         .choice-container {
-            flex-basis: 100%;
             border: 5px solid #050505;
             border-radius: 20px;
             padding: 10px;
             overflow-y: auto;
             height: 700px; /* Adjust as needed */
             background-color: rgba(250, 246, 246, 0.97); /* Ensure text readability */
+            margin-top: 20px; /* Ensure some space between header and content */
+            box-sizing: border-box; /* Maintain container dimensions */
         }
-        #login-form {
+        .choice-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        /* Additional styles for forms or content inside the choice-container */
+        .choice-container form {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: url('/static/back_ground.png') no-repeat center center;
-            background-size: cover;
+            gap: 10px;
         }
-        #login-form form {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            width: 300px;
-        }
-        #login-form .form-group {
-            margin-bottom: 15px;
-        }
-        #login-form label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        #login-form input[type="text"], #login-form input[type="password"] {
-            width: calc(100% - 22px);
+        .choice-container form input, .choice-container form textarea, .choice-container form select {
             padding: 10px;
-            margin: 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+            width: calc(100% - 22px);
         }
-        #login-form input[type="submit"] {
+        .choice-container form input[type="submit"] {
             background-color: #007bff;
             color: #fff;
             border: none;
             cursor: pointer;
             width: 100%;
         }
-        #login-form input[type="submit"]:hover {
+        .choice-container form input[type="submit"]:hover {
             background-color: #0056b3;
-        }
-        .text-center {
-            text-align: center;
         }
     </style>
     <script>
@@ -164,40 +155,33 @@
         <div class="language">Language: <a href="#">Eng</a> / <a href="#">PT</a></div>
         <div class="greeting" id="greeting"></div>
     </header>
-    <main>
-
-        <h1>MediConnect Management System</h1>
-
-        <img id="logo" src="/static/image.png" alt="Clinic Logo">
-        <h2>Powered by AI</h2>
-        <p class="text-center">Transforming Mozambique Health with AI Precision</p>
-
-        <div class="content">
-            <div class="menu">
-                <h3>MENU</h3>
-                <ul>
-                    {% for item in menu %}
-                        <li><a href="#" onclick="loadForm('{{ url_for(item.url) }}')">{{ loop.index }}. {{ item.name }}</a></li>
-                    {% endfor %}
-                </ul>
-                <br>
-                Enter your choice (0-6):
-                <input type="text" id="choice" name="choice">
-                <p>
-                    <img src="/static/flag.gif" alt="Menu GIF" style="width: 100%; height: 100%;">
-                </p>
-            </div>
-
-            <div class="choice-container" id="content">
-                <p>This is the working area of the whole App and is still under construction. Any choice selection from the Menu will appear here</p>
-            </div>
+    <main class="main-content">
+        <div class="menu">
+            <h3>MENU</h3>
+            <ul>
+                {% for item in menu %}
+                    <li>
+                        <a href="#" onclick="loadForm('{{ url_for(item.url) }}')">{{ loop.index }}. {{ item.name }}</a>
+                        <i class="fas fa-angle-right"></i>
+                    </li>
+                {% endfor %}
+            </ul>
+            <br>
+            Enter your choice (0-6):
+            <input type="text" id="choice" name="choice">
+            <p>
+                <img src="/static/flag.gif" alt="Menu GIF" style="width: 100%; height: 100%;">
+            </p>
         </div>
-        <br>
-        <div class="text-center">
-            <button>Contact Us</button>
-
-            <p>Copyright 2024, MediConnect Management System.<br>Created | Managed Pita Domingos</p>
-
+        <div class="container">
+            <div class="choice-container" id="content">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3KIOqSgwAG8?autoplay=1&loop=1&playlist=3KIOqSgwAG8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <br>
+            <div class="text-center">
+                <button>Contact Us</button>
+                <p>Copyright 2024, MediConnect Management System.<br>Created | Managed Pita Domingos</p>
+            </div>
         </div>
     </main>
 </body>

@@ -3,167 +3,146 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Patient</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
         .container {
             width: 100%;
-            margin: 0;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            box-sizing: border-box;
-        }
-        .header {
-            background-color: #add8e6;
-            padding: 10px;
-            text-align: center;
-            border-radius: 10px 10px 0 0;
-        }
-        .header h2 {
-            margin: 0;
-        }
-        .note {
-            color: red;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            display: flex;
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            flex: 1;
-            padding-right: 10px;
-        }
-        .form-group input {
-            flex: 2;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-group select {
-            flex: 2;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-group textarea {
-            flex: 2;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-group .small-input {
-            width: 50px;
-        }
-        .form-group .large-input {
-            width: 100%;
-        }
-        .form-group .photo {
-            width: 100px;
-            height: 150px;
-            border: 1px solid #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-left: 20px;
-        }
-        .form-group .photo img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        .buttons {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .buttons button {
-            background-color: #ccc;
+            margin-left: 00px;
+            max-width: 1500px;
+            margin: 20px;
+            padding: 50px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(110, 240, 170, 0.1);
+            border-radius: 2px;
             color: black;
-            padding: 10px 20px;
-            margin: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
-        .buttons button:hover {
-            background-color: #bbb;
+        h2 {
+            text-align: center;
+            color: #007bff;
+            background-color: #e0f0ff;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #000;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: #000;
+        }
+        input[type="submit"], input[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 15px;
+            grid-column: span 2;
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        .photo {
+            grid-row: span 6;
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 10px;
+            margin-top: 25px;
+        }
+        .photo img {
+            max-width: 100%;
+            height: auto;
+        }
+        .save-button, .submit-button {
+            display: inline-block;
+            width: 48%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h2>Create New Patient</h2>
-        </div>
-        <div class="note">* Obligatory fields</div>
-        <form method="post">
-            <div class="form-group">
-                <label for="id">ID</label>
-                <input type="text" id="id" name="id" value="auto" readonly>
+        <h2>Create New Patient</h2>
+        <form method="POST" action="/create_patient">
+            <label for="id">ID</label>
+            <input type="text" id="id" name="id" value="auto" readonly>
+
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" placeholder="Patient's full name*" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="0*" required>
+
+            <div class="photo">
+                <p>Photo</p>
+                <!-- Photo upload input or display -->
             </div>
-            <div class="form-group">
-                <label for="full_name">Full Name</label>
-                <input type="text" id="full_name" name="full_name" placeholder="Patient's full name*" required>
-                <div class="photo">
-                    <label>Photo</label>
-                </div>
+
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="Patient's residential Address*" required>
+
+            <label for="contact">Contact</label>
+            <input type="text" id="contact" name="contact" placeholder="Patient's cell number*" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+
+            <label for="home_hospital">Home Hospital</label>
+            <input type="text" id="home_hospital" name="home_hospital" placeholder="Patient's local/home hospital*" required>
+
+            <label for="next_of_kin">Next of Kin</label>
+            <input type="text" id="next_of_kin" name="next_of_kin">
+
+            <label for="visiting_hospital">Visiting Hospital</label>
+            <input type="text" id="visiting_hospital" name="visiting_hospital" placeholder="Visiting hospital" required>
+
+            <label for="next_of_kin_contact">Next of Kin Contact</label>
+            <input type="text" id="next_of_kin_contact" name="next_of_kin_contact">
+
+            <label for="allergies">Allergies</label>
+            <input type="text" id="allergies" name="allergies" placeholder="required*" required>
+
+            <label for="next_of_kin_email">Next of Kin Email</label>
+            <input type="email" id="next_of_kin_email" name="next_of_kin_email">
+
+            <label for="hereditary_disease">Hereditary Disease</label>
+            <input type="text" id="hereditary_disease" name="hereditary_disease">
+
+            <label for="town">Town</label>
+            <input type="text" id="town" name="town" placeholder="Tete*" required>
+
+            <label for="province">Province</label>
+            <input type="text" id="province" name="province" placeholder="Tete*" required>
+
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" value="Mozambique" required>
+
+            <div class="save-button">
+                <input type="button" value="Save">
             </div>
-            <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="Patient's residential Address*" required>
-                <label for="age">Age</label>
-                <input type="number" id="age" name="age" class="small-input" placeholder="0*" required>
-            </div>
-            <div class="form-group">
-                <label for="contact">Contact</label>
-                <input type="text" id="contact" name="contact" placeholder="Patient's cell number*" required>
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email">
-            </div>
-            <div class="form-group">
-                <label for="home_hospital">Home Hospital</label>
-                <input type="text" id="home_hospital" name="home_hospital" placeholder="Patient's local/home hospital*" required>
-                <label for="next_of_kin">Next of Kin</label>
-                <input type="text" id="next_of_kin" name="next_of_kin">
-            </div>
-            <div class="form-group">
-                <label for="visiting_hospital">Visiting Hospital</label>
-                <input type="text" id="visiting_hospital" name="visiting_hospital" placeholder="Visiting hospital">
-                <label for="next_of_kin_contact">Next of Kin Contact</label>
-                <input type="text" id="next_of_kin_contact" name="next_of_kin_contact">
-            </div>
-            <div class="form-group">
-                <label for="allergies">Allergies</label>
-                <input type="text" id="allergies" name="allergies" placeholder="required*" required>
-                <label for="next_of_kin_email">Next of Kin Email</label>
-                <input type="email" id="next_of_kin_email" name="next_of_kin_email">
-            </div>
-            <div class="form-group">
-                <label for="hereditary_disease">Hereditary Disease</label>
-                <input type="text" id="hereditary_disease" name="hereditary_disease">
-            </div>
-            <div class="form-group">
-                <label for="town">Town</label>
-                <input type="text" id="town" name="town" value="Tete*" readonly>
-            </div>
-            <div class="form-group">
-                <label for="province">Province</label>
-                <input type="text" id="province" name="province" value="Tete*" readonly>
-            </div>
-            <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" id="country" name="country" value="Mozambique*" readonly>
-            </div>
-            <div class="buttons">
-                <button type="button">Save</button>
-                <button type="submit">Submit</button>
+            <div class="submit-button">
+                <input type="submit" value="Submit">
             </div>
         </form>
     </div>
