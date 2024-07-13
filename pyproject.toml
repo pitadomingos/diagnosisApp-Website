@@ -9,6 +9,7 @@ packages = [{include = "repl_nix_diagnosisapp_website"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 flask = "^3.0.3"
+setuptools = "^70.3.0"
 
 
 [build-system]

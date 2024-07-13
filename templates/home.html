@@ -18,20 +18,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 5px 50px;
             background-color: #f0a422;
             position: fixed;
-            width: calc(100% - 200px);
+            width: calc(100% - 350px);
             z-index: 1;
             top: 0;
-            left: 200px; /* Account for the menu width */
+            left: 285px; /* Account for the menu width */
         }
         header .greeting, header .language {
             font-size: 20px;
             color: #f8f0f0;
         }
         .main-content {
-            margin-top: 60px; /* Offset for the fixed header */
+            margin-top: 10px; /* Offset for the fixed header */
             display: flex;
             flex-grow: 1;
         }
@@ -42,12 +42,12 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 200px;
+            width: 280px;
             height: 100%;
             background-color: black;
             color: white;
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+            box-shadow: 10px 0 1px rgba(100,250,260,0.5);
             overflow-y: auto;
             z-index: 2; /* Ensure the menu is always on top */
         }
@@ -71,17 +71,17 @@
             margin-left: 10px;
         }
         .container {
-            margin-left: 220px;
+            margin-left: 320px;
             padding: 20px;
             width: calc(100% - 220px); /* Adjusts width to account for the menu */
             box-sizing: border-box;
         }
         .choice-container {
-            border: 5px solid #050505;
-            border-radius: 20px;
+            border: 10px solid #050505;
+            border-radius: 10px;
             padding: 10px;
             overflow-y: auto;
-            height: 700px; /* Adjust as needed */
+            height: 440px; /* Adjust as needed */
             background-color: rgba(250, 246, 246, 0.97); /* Ensure text readability */
             margin-top: 20px; /* Ensure some space between header and content */
             box-sizing: border-box; /* Maintain container dimensions */
@@ -166,9 +166,7 @@
                     </li>
                 {% endfor %}
             </ul>
-            <br>
-            Enter your choice (0-6):
-            <input type="text" id="choice" name="choice">
+
             <p>
                 <img src="/static/flag.gif" alt="Menu GIF" style="width: 100%; height: 100%;">
             </p>
