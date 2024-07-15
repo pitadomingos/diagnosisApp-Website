@@ -7,143 +7,147 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #0541D2;
-            color: #0541D2;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            
         }
         .container {
-            margin-left: 320px;
-           /* height:500px;*/
-            justify-content: center;
-            align-items: center;
-            padding: 5px;
-            /*idth: calc(100% - 200px); /* Adjusts width to account for the menu */
-            /*box-sizing: border-box;*/
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            margin: 0 auto;
+            margin-top: 20px;
         }
-        h2 {
+        h1 {
             text-align: center;
-            color: #007bff;
-            background-color: #e0f0ff;
-            padding: 10px;
-            border-radius: 4px;
+            color: #333;
         }
-        form {
+        .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            padding: 100px
-            gap: 10px;
+            gap: 20px;
         }
-        label {
+        .item {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .item label {
             display: block;
             margin-bottom: 5px;
-            color: #100F0F
+            color: #333;
         }
-        input, textarea, select {
+        .item input, .item textarea, .item select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-            color: #000;
         }
-        input[type="submit"], input[type="button"] {
+        .photo {
+            grid-column: span 2;
+            text-align: center;
+            border: none;
+        }
+        .photo img {
+            max-width: 100px;
+            height: auto;
+        }
+        .buttons {
+            grid-column: span 2;
+            text-align: center;
+        }
+        .buttons input[type="button"], .buttons input[type="submit"] {
+            width: 48%;
+            padding: 15px;
             background-color: #007bff;
             color: #fff;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
-            padding: 15px;
-            grid-column: span 2;
+            margin-top: 20px;
         }
-        input[type="submit"]:hover, input[type="button"]:hover {
+        .buttons input[type="button"]:hover, .buttons input[type="submit"]:hover {
             background-color: #0056b3;
-        }
-        .full-width {
-            grid-column: span 2;
-        }
-        .photo {
-            grid-row: span 6;
-            border: 1px solid #ccc;
-            text-align: center;
-            padding: 10px;
-            margin-top: 25px;
-        }
-        .photo img {
-            max-width: 100%;
-            height: auto;
-        }
-        .save-button, .submit-button {
-            display: inline-block;
-            width: 48%;
-            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Create New Patient</h2>
-        <form method="POST" action="/create_patient">
-            <label for="id">ID</label>
-            <input type="text" id="id" name="id" value="auto" readonly>
-
-            <label for="full_name">Full Name</label>
-            <input type="text" id="full_name" name="full_name" placeholder="Patient's full name*" required>
-
-            <label for="age">Age</label>
-            <input type="number" id="age" name="age" placeholder="0*" required>
-
-            <div class="photo">
-                <p>Photo</p>
-                <!-- Photo upload input or display -->
+        <h1>Create New Patient</h1>
+        <div class="photo item">
+            <label for="photo">Patient's Photo</label>
+            <input type="file" id="photo" name="photo">
+            <img src="file-2RpfllXr7YPF11d4tMYej8gT" alt="Patient Photo">
+        </div>
+        <div class="grid-container">
+            <div class="item">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" placeholder="Patient's full name*" required>
             </div>
-
-            <label for="address">Address</label>
-            <input type="text" id="address" name="address" placeholder="Patient's residential Address*" required>
-
-            <label for="contact">Contact</label>
-            <input type="text" id="contact" name="contact" placeholder="Patient's cell number*" required>
-
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email">
-
-            <label for="home_hospital">Home Hospital</label>
-            <input type="text" id="home_hospital" name="home_hospital" placeholder="Patient's local/home hospital*" required>
-
-            <label for="next_of_kin">Next of Kin</label>
-            <input type="text" id="next_of_kin" name="next_of_kin">
-
-            <label for="visiting_hospital">Visiting Hospital</label>
-            <input type="text" id="visiting_hospital" name="visiting_hospital" placeholder="Visiting hospital" required>
-
-            <label for="next_of_kin_contact">Next of Kin Contact</label>
-            <input type="text" id="next_of_kin_contact" name="next_of_kin_contact">
-
-            <label for="allergies">Allergies</label>
-            <input type="text" id="allergies" name="allergies" placeholder="required*" required>
-
-            <label for="next_of_kin_email">Next of Kin Email</label>
-            <input type="email" id="next_of_kin_email" name="next_of_kin_email">
-
-            <label for="hereditary_disease">Hereditary Disease</label>
-            <input type="text" id="hereditary_disease" name="hereditary_disease">
-
-            <label for="town">Town</label>
-            <input type="text" id="town" name="town" placeholder="Tete*" required>
-
-            <label for="province">Province</label>
-            <input type="text" id="province" name="province" placeholder="Tete*" required>
-
-            <label for="country">Country</label>
-            <input type="text" id="country" name="country" value="Mozambique" required>
-
-            <div class="save-button">
-                <input type="button" value="Save">
+            <div class="item">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Patient's residential address*" required>
             </div>
-            <div class="submit-button">
-                <input type="submit" value="Submit">
+            <div class="item">
+                <label for="contact">Contact</label>
+                <input type="text" id="contact" name="contact" placeholder="Patient's cell number*" required>
             </div>
-        </form>
+            <div class="item">
+                <label for="home_hospital">Home Hospital</label>
+                <input type="text" id="home_hospital" name="home_hospital" placeholder="Patient's local/home hospital*" required>
+            </div>
+            <div class="item">
+                <label for="visiting_hospital">Visiting Hospital</label>
+                <input type="text" id="visiting_hospital" name="visiting_hospital" placeholder="Visiting hospital" required>
+            </div>
+            <div class="item">
+                <label for="allergies">Allergies</label>
+                <input type="text" id="allergies" name="allergies" placeholder="Required*" required>
+            </div>
+            <div class="item">
+                <label for="hereditary_disease">Hereditary Disease</label>
+                <input type="text" id="hereditary_disease" name="hereditary_disease">
+            </div>
+            <div class="item">
+                <label for="town">Town</label>
+                <input type="text" id="town" name="town" placeholder="Tete*" required>
+            </div>
+            <div class="item">
+                <label for="province">Province</label>
+                <input type="text" id="province" name="province" placeholder="Tete*" required>
+            </div>
+            <div class="item">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" value="Mozambique" required>
+            </div>
+            <div class="item">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="item">
+                <label for="next_of_kin">Next of Kin</label>
+                <input type="text" id="next_of_kin" name="next_of_kin">
+            </div>
+            <div class="item">
+                <label for="next_of_kin_contact">Next of Kin Contact</label>
+                <input type="text" id="next_of_kin_contact" name="next_of_kin_contact">
+            </div>
+            <div class="item">
+                <label for="next_of_kin_email">Next of Kin Email</label>
+                <input type="email" id="next_of_kin_email" name="next_of_kin_email">
+            </div>
+        </div>
+        <div class="buttons">
+            <input type="button" value="Save">
+            <input type="submit" value="Submit">
+        </div>
     </div>
 </body>
 </html>
