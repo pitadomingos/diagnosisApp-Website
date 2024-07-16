@@ -1,186 +1,198 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>MediConnect Management System</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            font-family: 'Lucida Sans Regular', sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background: url('/static/back_ground.png') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-        }
-        header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px 50px;
-            background-color: #f0a422;
-            position: fixed;
-            width: calc(100% - 350px);
-            z-index: 1;
-            top: 0;
-            left: 285px; /* Account for the menu width */
         }
-        header .greeting, header .language {
-            font-size: 20px;
-            color: #f8f0f0;
-        }
-        .main-content {
-            margin-top: 50px; /* Offset for the fixed header */
-            display: flex;
-            flex-grow: 1;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 280px;
-            height: 100%;
-            background-color: black;
-            color: white;
+        .sidebar {
+            width: 20%;
+            background-color: #000;
+            color: #fff;
             padding: 20px;
-            box-shadow: 10px 0 1px rgba(100,250,260,0.5);
-            overflow-y: auto;
-            z-index: 2; /* Ensure the menu is always on top */
-        }
-        .menu ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .menu ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid #444;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .menu ul li a {
-            color: white;
-            text-decoration: none;
-            flex: 1;
-        }
-        .menu ul li i {
-            margin-left: 10px;
-        }
-        .container {
-            margin-left: 320px;
-            padding: 20px;
-            width: calc(100% - 320px); /* Adjusts width to account for the menu */
             box-sizing: border-box;
         }
-        .choice-container {
-            border: 10px solid #050505;
-            border-radius: 10px;
-            padding: 10px;
-            overflow-y: auto;
-            height: calc(80vh - 100px); /* Adjust as needed */
-            background-color: rgba(250, 246, 246, 0.97); /* Ensure text readability */
-            margin-top: 20px; /* Ensure some space between header and content */
-            box-sizing: border-box; /* Maintain container dimensions */
+        .main-content {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
-        .choice-container iframe {
+        .container {
             width: 100%;
-            height: 100%;
-            border: none;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
         }
-        .footer {
+        h1 {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.9em;
+            color: #333;
         }
-        /* Additional styles for forms or content inside the choice-container */
-        .choice-container form {
+        .grid-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 20px;
         }
-        .choice-container form input, .choice-container form textarea, .choice-container form select {
+        .item {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .item label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .item input, .item textarea, .item select {
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            width: calc(100% - 220px);
+            border-radius: 4px;
+            box-sizing: border-box;
         }
-        .choice-container form input[type="submit"] {
-            background-color: rgba(0,0,0,0.5);
+        .photo {
+            grid-column: span 2;
+            text-align: center;
+            border: none;
+        }
+        .photo img {
+            max-width: 100px;
+            height: auto;
+        }
+        .buttons {
+            grid-column: span 2;
+            text-align: center;
+        }
+        .buttons input[type="button"], .buttons input[type="submit"] {
+            width: 48%;
+            padding: 15px;
+            background-color: #007bff;
             color: #fff;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
-            width: 100%;
+            margin-top: 20px;
         }
-        .choice-container form input[type="submit"]:hover {
+        .buttons input[type="button"]:hover, .buttons input[type="submit"]:hover {
             background-color: #0056b3;
+        }
+        .notification-box {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #f0a422;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
     </style>
     <script>
-        function getGreeting() {
-            const now = new Date();
-            const hours = now.getHours();
-            let greeting;
+        function searchPatient() {
+            const searchById = document.getElementById('searchById').value;
+            const searchByName = document.getElementById('searchByName').value;
+            // Add the code to fetch patient details based on ID or Name
+            // and populate the respective fields
+        }
 
-            if (hours >= 6 && hours < 12) {
-                greeting = "Good Morning";
-            } else if (hours >= 12 && hours < 18) {
-                greeting = "Good Afternoon";
-            } else {
-                greeting = "Good Evening";
-            }
+        function requestLabTests() {
+            // Code to open a popup with lab tests checkboxes
+        }
 
-            return greeting;
+        function handleVoiceInput() {
+            // Implement voice-to-text functionality
+        }
+
+        function handleSubmit() {
+            // Gather all form data and send it to OpenAI for diagnosis
+            // Populate the response field with OpenAI's response
+        }
+
+        function checkForLabResults() {
+            // Implement real-time notifications for lab results
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('greeting').innerHTML = `${getGreeting()}, {{ username }}`;
+            setInterval(checkForLabResults, 5000); // Check for lab results every 5 seconds
         });
-
-        function loadForm(url) {
-            fetch(url)
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('content').innerHTML = html;
-                })
-                .catch(error => console.error('Error:', error));
-        }
     </script>
 </head>
 <body>
-    <header>
-        <div class="language">Language: <a href="#">Eng</a> / <a href="#">PT</a></div>
-        <div class="greeting" id="greeting"></div>
-    </header>
-    <main class="main-content">
-        <div class="menu">
-            <h3>MENU</h3>
-            <ul>
-                {% for item in menu %}
-                    <li>
-                        <a href="#" onclick="loadForm('{{ url_for(item.url) }}')">{{ loop.index }}. {{ item.name }}</a>
-                        <i class="fas fa-angle-right"></i>
-                    </li>
-                {% endfor %}
-            </ul>
-
-            <p>
-                <img src="/static/flag.gif" alt="Menu GIF" style="width: 120%; height: 95%;">
-            </p>
-        </div>
+    <div class="sidebar">
+        <!-- Sidebar content (e.g., menu) goes here -->
+    </div>
+    <div class="main-content">
         <div class="container">
-            <div class="choice-container" id="content">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3KIOqSgwAG8?autoplay=1&loop=1&playlist=3KIOqSgwAG8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <br>
-            <div class="text-center">
-                <button>Contact Us</button>
-                <p>Copyright 2024, MediConnect Management System.<br>Created | Managed Pita Domingos</p>
+            <h1>Consultation</h1>
+            <div class="grid-container">
+                <div class="photo item">
+                    <label for="photo">Patient's Photo</label>
+                    <img id="photo" src="" alt="Patient Photo">
+                </div>
+                <div class="item">
+                    <label for="searchById">Search by ID</label>
+                    <input type="text" id="searchById" name="searchById" oninput="searchPatient()">
+                </div>
+                <div class="item">
+                    <label for="searchByName">Search by Name</label>
+                    <input type="text" id="searchByName" name="searchByName" oninput="searchPatient()">
+                </div>
+                <div class="item">
+                    <label for="patientDetails">Patient Details</label>
+                    <textarea id="patientDetails" name="patientDetails" rows="4" readonly></textarea>
+                </div>
+                <div class="item">
+                    <label for="symptoms">Symptoms</label>
+                    <textarea id="symptoms" name="symptoms" rows="4"></textarea>
+                    <button type="button" onclick="handleVoiceInput()">Voice Input</button>
+                </div>
+                <div class="item">
+                    <label for="tc">Tc</label>
+                    <input type="text" id="tc" name="tc">
+                </div>
+                <div class="item">
+                    <label for="weight">Weight</label>
+                    <input type="text" id="weight" name="weight">
+                </div>
+                <div class="item">
+                    <label for="height">Height</label>
+                    <input type="text" id="height" name="height">
+                </div>
+                <div class="item">
+                    <label for="bmi">BMI</label>
+                    <input type="text" id="bmi" name="bmi">
+                </div>
+                <div class="item">
+                    <label for="response">AI Response</label>
+                    <textarea id="response" name="response" rows="4" readonly></textarea>
+                </div>
+                <div class="item">
+                    <label for="doctorComments">Doctor's Comments</label>
+                    <textarea id="doctorComments" name="doctorComments" rows="4"></textarea>
+                </div>
+                <div class="buttons">
+                    <input type="button" value="Request Lab Tests" onclick="requestLabTests()">
+                    <input type="submit" value="Submit" onclick="handleSubmit()">
+                </div>
             </div>
         </div>
-    </main>
+    </div>
+    <div class="notification-box" id="notificationBox">
+        <!-- Real-time notifications will appear here -->
+    </div>
 </body>
 </html>
